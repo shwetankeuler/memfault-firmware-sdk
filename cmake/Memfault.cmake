@@ -61,6 +61,15 @@ function(memfault_library sdk_root components src_var_name inc_var_name)
   else()
     message(FATAL_ERROR "Unsupported Arch: ${arch}")
   endif()
-  set(${src_var_name} ${SDK_SRC} PARENT_SCOPE)
-  set(${inc_var_name} ${SDK_INC} PARENT_SCOPE)
+
+  # add_subdirectory(Library/Middleware/threadx-6.1.9_rel)
+  set(THREADX_DIR Library/Middleware/threadx-6.1.9_rel)
+  set(THREADX_INC
+      ${THREADX_DIR}/common/inc
+      ${THREADX_DIR}/ports/cortex_m4/gnu/inc)  
+  set(THREADX_C
+      Core/Src
+      )
+  set(${src_var_name} ${SDK_SRC} ${THREADX_C} PARENT_SCOPE)
+  set(${inc_var_name} ${SDK_INC} ${THREADX_INC} PARENT_SCOPE)
 endfunction()

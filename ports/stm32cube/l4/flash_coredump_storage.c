@@ -40,12 +40,12 @@
 #include "stm32l4xx_hal.h"
 
 #ifndef MEMFAULT_COREDUMP_STORAGE_START_ADDR
-extern uint32_t __MemfaultCoreStorageStart[];
+uint32_t __MemfaultCoreStorageStart[];
 #define MEMFAULT_COREDUMP_STORAGE_START_ADDR ((uint32_t)__MemfaultCoreStorageStart)
 #endif
 
 #ifndef MEMFAULT_COREDUMP_STORAGE_END_ADDR
-extern uint32_t __MemfaultCoreStorageEnd[];
+uint32_t __MemfaultCoreStorageEnd[];
 #define MEMFAULT_COREDUMP_STORAGE_END_ADDR ((uint32_t)__MemfaultCoreStorageEnd)
 #endif
 
