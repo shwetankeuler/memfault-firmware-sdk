@@ -115,6 +115,7 @@ static bool prv_op_within_flash_bounds(uint32_t offset, size_t data_len) {
   return (offset + data_len) <= info.size;
 }
 
+MEMFAULT_NO_OPT
 void memfault_platform_coredump_storage_get_info(sMfltCoredumpStorageInfo *info) {
   const size_t size =
       MEMFAULT_COREDUMP_STORAGE_END_ADDR - MEMFAULT_COREDUMP_STORAGE_START_ADDR;
@@ -194,7 +195,9 @@ static bool prv_erase_from_bank(uint32_t Banks, uint32_t Page, uint32_t NbPages)
   uint32_t SectorError = 0;
   HAL_FLASH_Unlock();
   {
+    FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
     int res = HAL_FLASHEx_Erase(&s_erase_cfg, &SectorError);
+    FLASH_WaitForLastOperation(FLASH_TIMEOUT_VALUE);
     if (res != HAL_OK) {
       prv_coredump_writer_assert_and_reboot(res);
     }
@@ -203,6 +206,7 @@ static bool prv_erase_from_bank(uint32_t Banks, uint32_t Page, uint32_t NbPages)
   return true;
 }
 
+MEMFAULT_NO_OPT
 bool memfault_platform_coredump_storage_erase(uint32_t offset, size_t erase_size) {
   if (!prv_op_within_flash_bounds(offset, erase_size)) {
     return false;
