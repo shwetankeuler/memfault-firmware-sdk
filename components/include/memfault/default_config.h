@@ -497,7 +497,7 @@ extern "C" {
 
 //! The default amount of stack to collect for the stack that was active leading up to a crash
 #ifndef MEMFAULT_PLATFORM_ACTIVE_STACK_SIZE_TO_COLLECT
-#define MEMFAULT_PLATFORM_ACTIVE_STACK_SIZE_TO_COLLECT 512
+#define MEMFAULT_PLATFORM_ACTIVE_STACK_SIZE_TO_COLLECT 2048
 #endif
 
 //
